@@ -1,0 +1,145 @@
+---
+
+---
+
+<canvas  class="fixed top-0 left-0"  id="canvas"></canvas>
+
+<script>
+  import { generate2DPerlinNoise, type PerlinNoiseValues2D } from '../util/perlinNoise';
+
+  type Snowflake = {
+    x: number;
+    y: number;
+    z: number;
+    speed: number;
+    size: number;
+    color: string;
+  }
+
+  type Config = {
+    snowflakeCount: number;
+    snowMinZ: number;
+    snowMaxZ: number;
+    snowMaxSize: number;
+    snowMaxSpeed: number;
+    snowflakeColor: string;
+
+    noiseRadius: number;
+  }
+
+  type State = {
+    snowflakes: Snowflake[];
+    noise: PerlinNoiseValues2D;
+    windAngle: number;
+  }
+
+  window.addEventListener("resize", start);
+  
+
+  function start ()  {
+    const canvas = document.querySelector<HTMLCanvasElement>("#canvas");
+    const ctx = canvas?.getContext("2d");
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const config : Config = {
+      snowflakeCount : 100,
+      snowMinZ : 1.0,
+      snowMaxZ : 10,
+      snowMaxSize : 2,
+      snowMaxSpeed : 2,
+      snowflakeColor : "#6272a4",
+
+      noiseRadius : 100,
+    }
+
+    const state : State = {
+      snowflakes: [],
+      noise: generate2DPerlinNoise(config.noiseRadius * 1.1, config.noiseRadius * 1.1, 0.001),
+      windAngle: 0,
+    }
+
+
+
+    if (ctx && canvas) {
+      canvas.width = width;
+      canvas.height = height;
+
+      // simulate a snowstorm
+
+
+
+      for (let i = 0; i < config.snowflakeCount; i++) {
+        const z = randomRange(config.snowMinZ, config.snowMaxZ);
+        
+        const speed = map(z, config.snowMinZ, config.snowMaxZ, config.snowMaxSpeed, config.snowMaxSpeed / (config.snowMaxZ - config.snowMinZ));
+        const size = map(z, config.snowMinZ, config.snowMaxZ, config.snowMaxSize, config.snowMaxSize / (config.snowMaxZ - config.snowMinZ) );
+
+        state.snowflakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          z,
+          speed,
+          size,
+          color: config.snowflakeColor,
+        });
+      }
+
+      function drawSnowflake(ctx: CanvasRenderingContext2D, snowflake: Snowflake) {
+        ctx.beginPath();
+        ctx.arc(snowflake.x, snowflake.y, snowflake.size, 0, Math.PI * 2);
+        ctx.fillStyle = snowflake.color;
+        ctx.fill();
+      }
+
+      function moveSnowflake(snowflake: Snowflake) {
+        snowflake.y += snowflake.speed;
+        if (snowflake.y > height) {
+          snowflake.y = -5;
+          snowflake.x = Math.random() * width;
+        }
+
+        const noiseX = map(Math.cos(state.windAngle + snowflake.z), -1, 1, 0, 1) * config.noiseRadius;
+        const noiseY = map(Math.sin(state.windAngle + snowflake.z), -1, 1, 0, 1) * config.noiseRadius;
+        const noiseValue = state.noise[Math.floor(noiseY)]![Math.floor(noiseX)]!;
+        const windSpeed = map(noiseValue, -1, 1, -5, 5);
+
+    
+        snowflake.x += map(snowflake.z, config.snowMinZ, config.snowMaxZ, windSpeed, windSpeed / (config.snowMaxZ - config.snowMinZ));;
+      }
+
+      function draw(ctx: CanvasRenderingContext2D, snowflakes: Snowflake[]) {
+        ctx.clearRect(0, 0, width, height);
+        
+        snowflakes.forEach((snowflake) => {
+          state.windAngle += 0.00001;
+
+
+          drawSnowflake(ctx, snowflake);
+          moveSnowflake(snowflake);
+
+
+        });
+
+        requestAnimationFrame(() => {
+          draw(ctx, snowflakes);
+        });
+      }
+
+      function map(value: number, min1: number, max1: number, min2: number, max2: number) {
+        return ((value - min1) * (max2 - min2)) / (max1 - min1) + min2;
+      }
+
+      function randomRange(min: number, max: number) {
+        return Math.random() * (max - min) + min;
+      }
+
+      requestAnimationFrame(() => {
+        draw(ctx, state.snowflakes);
+      });
+    }
+  }
+  start();
+
+
+</script>
