@@ -2,32 +2,40 @@
 const navItems = [
   {
     title: "Me",
-    href: "/"
+    href: "/",
   },
   {
     title: "Contact",
-    href: "/contact"
+    href: "/contact/",
   },
   {
     title: "Blog",
-    href: "/blog",
+    href: "/blog/",
   },
   {
     title: "Projects",
-    href: "/projects"
+    href: "/projects/",
   },
   {
     title: "Resume",
-    href: "/resume"
+    href: "/resume/",
   },
-]
+];
 ---
 
 <nav class="flex flex-row justify-center items-center p-2">
   <ul class="flex flex-row text-foreground font-serif">
     <li></li>
-    {navItems.map((item) => 
-      <li class={item.href === Astro.url.pathname ? "p-1 text-yellow" : "p-1"}><a class="p-1" href={item.href}>{item.title}</a></li>
-    )}
+    {
+      navItems.map((item) => (
+        <li
+          class={item.href === Astro.url.pathname ? "p-1 text-yellow" : "p-1"}
+        >
+          <a class="p-1" href={item.href}>
+            {item.title}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </nav>
