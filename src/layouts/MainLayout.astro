@@ -1,6 +1,9 @@
 ---
 import Container from "../components/Container.astro";
 import Header from "../components/Header.astro";
+import ThemePicker from "../components/ThemePicker.svelte";
+import ThemeProvider from "../components/ThemeProvider.svelte";
+
 // import BackgroundWinter from "../components/BackgroundWinter.astro";
 const { title } = Astro.props;
 ---
@@ -13,11 +16,15 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="m-0 p-0 bg-background">
-    <!-- <BackgroundWinter/> -->
-    <Header />
-    <Container>
-      <slot />
-    </Container>
+  <body class="overflow-x-hidden overflow-y-auto">
+    <ThemeProvider client:load>
+      <!-- <BackgroundWinter/> -->
+      <Header class="fixed top-0" />
+      <Container>
+        <slot />
+      </Container>
+
+      <ThemePicker client:idle className="fixed bottom-0 right-0" />
+    </ThemeProvider>
   </body>
 </html>

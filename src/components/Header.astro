@@ -1,4 +1,6 @@
 ---
+const { class: className } = Astro.props;
+
 const navItems = [
   {
     title: "Me",
@@ -23,18 +25,27 @@ const navItems = [
 ];
 ---
 
-<nav class="flex flex-row justify-center items-center p-2">
-  <ul class="flex flex-row text-foreground font-serif">
-    <li></li>
+<nav
+  class:list={[
+    "w-full flex bg-background flex-row justify-center items-center py-2",
+    className,
+  ]}
+>
+  <ul class="flex flex-row flex-wrap text-foreground font-serif">
     {
-      navItems.map((item) => (
-        <li
-          class={item.href === Astro.url.pathname ? "p-1 text-yellow" : "p-1"}
-        >
-          <a class="p-1" href={item.href}>
-            {item.title}
-          </a>
-        </li>
+      navItems.map((item, i) => (
+        <>
+          <li
+            class={`${item.href === Astro.url.pathname ? "text-yellow" : ""}`}
+          >
+            <a class="py-2 px-1" href={item.href}>
+              {item.title}
+            </a>{" "}
+          </li>
+          {i < navItems.length - 1 && (
+            <li class="text-comment flex items-center">/</li>
+          )}
+        </>
       ))
     }
   </ul>
