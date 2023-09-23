@@ -1,12 +1,19 @@
 ---
+import SEO from "../components/SEO.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout>
+  <SEO
+    title="Alvinosh | Full Stack Developer"
+    description="Alvinosh's personal website"
+    keywords={["landing page", "landing"]}
+    slot="head"
+  />
+
   <div class="w-full p-5"></div>
   <h1 class="text-4xl font-serif text-cyan cursor-pointer hover:underline">
-    <a href="https://github.com/alvinosh"></a>
-     Alvinosh
+    <a href="https://github.com/alvinosh">Alvinosh</a>
   </h1>
   <h3 class="text-xl font-serif text-foreground">Full Stack Developer</h3>
   <div class="w-full p-6"></div>

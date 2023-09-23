@@ -11,11 +11,8 @@
   });
 </script>
 
-<main
-  data-theme={$themeStore}
-  class="bg-background w-screen min-h-screen overflow-y-auto overflow-x-hidden m-0 pt-10"
->
-  {#if $themeStore !== "none"}
-    <slot />
-  {/if}
-</main>
+<!-- <main data-theme={$themeStore} class="">
+  {#if $themeStore !== "none"} -->
+<slot />
+<!-- {/if}
+</main> -->

@@ -1,0 +1,69 @@
+---
+type SEO = {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+  keywords: string[];
+};
+
+const seo: SEO = {
+  title: "Alvinosh",
+  description: "Alvinosh's personal website",
+  image: "",
+  url: "",
+  keywords: [
+    "next",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "nextjs",
+    "reactjs",
+    "tailwind",
+    "html",
+    "css",
+    "javascript",
+    "web",
+    "rust",
+    "experienced",
+    "express",
+    "nodejs",
+    "blog",
+    "developer",
+    "frontend",
+    "frontend developer",
+    "web developer",
+    "software engineer",
+    "software developer",
+    "software engineering",
+    "freelancer",
+    "freelance",
+    "alvinosh",
+    "alvin",
+    "alvinosh dev",
+    "alvinosh developer",
+    "alvi",
+    "alvinosh portfolio",
+    "alvinosh website",
+    "alvinosh personal website",
+  ],
+};
+
+const imports = Astro.props as Partial<SEO>;
+
+const output = {
+  ...seo,
+  ...imports,
+  keywords: [...seo.keywords, ...(imports.keywords ?? [])],
+};
+---
+
+<title>{output.title}</title>
+<meta name="description" content={output.description} />
+<meta name="keywords" content={output.keywords.join(", ")} />
+<meta name="image" content={output.image} />
+<meta property="og:title" content={output.title} />
+<meta property="og:description" content={output.description} />
+<meta property="og:image" content={output.image} />
+<meta property="og:url" content={output.url} />
+<meta property="og:type" content="website" />
