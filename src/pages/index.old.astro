@@ -1,0 +1,51 @@
+---
+import SEO from "../components/SEO.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+  <SEO
+    title="Alvinosh | Full Stack Developer"
+    description="Alvinosh's personal website"
+    keywords={["landing page", "landing"]}
+    slot="head"
+  />
+
+  <div class="w-full p-5"></div>
+  <h1 class="text-4xl font-serif text-cyan cursor-pointer hover:underline">
+    <a href="https://github.com/alvinosh">Alvinosh</a>
+  </h1>
+  <h3 class="text-xl font-serif text-foreground">Full Stack Developer</h3>
+  <div class="w-full p-6"></div>
+  <h3 class="text-xl font-serif text-cyan">Skills</h3>
+  <ul
+    class="text-lg list-disc pl-5 decoration-dashed font-serif text-foreground"
+  >
+    <li>HTML, CSS, JavaScript, C, Rust</li>
+    <li>React, Angular, Svelte, Astro</li>
+    <li>Node.js, Express, NestJS, Next.js</li>
+    <li>Linux, Git, Nginx</li>
+  </ul>
+  <div class="w-full p-6"></div>
+  <h3 class="text-xl font-serif text-cyan">Highlights</h3>
+  <ul
+    class="text-lg list-disc pl-5 decoration-dashed font-serif text-foreground"
+  >
+    <li>
+      <a class="underline text-red active:text-orange" href="/mh">mh</a>: a
+      journaling website especially annoying for perfectionists
+    </li>
+  </ul>
+  <div class="w-full p-6"></div>
+  <h3 class="text-xl font-serif text-cyan">Links</h3>
+  <ul
+    class="text-lg list-disc pl-5 decoration-dashed font-serif text-foreground"
+  >
+    <li>
+      <a
+        class="underline text-red active:text-orange"
+        href="https://github.com/alvinosh">Github</a
+      >
+    </li>
+  </ul>
+</MainLayout>
