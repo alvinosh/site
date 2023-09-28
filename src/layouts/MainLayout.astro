@@ -3,7 +3,6 @@ import Container from "../components/Container.astro";
 import Header from "../components/Header.astro";
 import SEO from "../components/SEO.astro";
 import ThemePicker from "../components/ThemePicker.svelte";
-import ThemeProvider from "../components/ThemeProvider.svelte";
 import Footer from "../components/Footer.astro";
 
 // import BackgroundWinter from "../components/BackgroundWinter.astro";
@@ -56,15 +55,12 @@ import Footer from "../components/Footer.astro";
     style="display: none;"
     class="overflow-x-hidden overflow-y-auto bg-background w-screen min-h-screen pt-10"
   >
-    <ThemeProvider client:load>
-      <!-- <BackgroundWinter/> -->
-      <Header class="fixed top-0" />
-      <Container>
-        <slot />
-        <Footer />
-      </Container>
+    <Header class="fixed top-0" />
+    <Container>
+      <slot />
+      <Footer />
+    </Container>
 
-      <ThemePicker client:idle className="fixed bottom-0 right-0" />
-    </ThemeProvider>
+    <ThemePicker client:idle className="fixed bottom-0 right-0" />
   </body>
 </html>
