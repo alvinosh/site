@@ -1,4 +1,5 @@
 ---
+import HorizontalSep from "../components/HorizontalSep.astro";
 import SEO from "../components/SEO.astro";
 import SVG from "../components/SVG.astro";
 import MainLayout from "../layouts/MainLayout.astro";
@@ -77,8 +78,10 @@ const projects = [
     slot="head"
   />
 
-  <div class="m-auto w-11/12 md:w-8/12 font-mono">
-    <div class="my-20 md:mt-36 flex justify-between">
+  <div
+    class="mx-auto w-11/12 md:w-8/12 font-mono h-screen flex flex-col justify-center"
+  >
+    <div class="flex justify-between">
       <div class="flex flex-col justify-center items-start">
         <h1 class="text-orange text-4xl md:text-6xl">Hello,</h1>
         <h2 class="text-comment text-xl md:text-3xl">
@@ -91,7 +94,7 @@ const projects = [
       </div>
     </div>
 
-    <div class="w-full mb-12 md:mb-36 flex justify-center">
+    <div class="w-full flex justify-center my-20">
       <a
         href="#skill"
         class="cursor-pointer p-2 border-2 border-orange text-orange shadow-xl hover:shadow-lg transition-all"
@@ -100,32 +103,35 @@ const projects = [
     </div>
   </div>
 
-  <div id="skill" class="w-screen bg-orange mt-56">
-    <div class="m-auto w-11/12 md:w-8/12 font-mono py-32">
-      <h1 class="w-full text-center text-background text-3xl md:text-5xl">
-        My Skills
-      </h1>
-      <div class="m-4"></div>
+  <HorizontalSep class="text-comment" />
+
+  <div id="skill" class="w-screen bg-background">
+    <div
+      class="m-auto w-11/12 md:w-8/12 font-mono py-10 min-h-screen flex flex-col justify-center items-center"
+    >
+      <h1 class="text-red text-3xl md:text-5xl pb-10">My Skills</h1>
       <div
-        class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 md:gap-6 gap-16 my-10"
+        class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 md:gap-6 gap-16"
       >
         {
           skills.map((skill) => {
             return (
               <div class="p-2 flex flex-col gap-2">
-                <p class="w-full text-center text-lg font-extrabold text-background">
+                <p class="w-full text-center text-lg font-extrabold text-foreground">
                   {skill.name}
                 </p>
                 <SVG
-                  class="w-full stroke-background fill-background"
+                  class="w-full stroke-comment fill-comment"
                   icon={skill.icon}
                 />
                 <div class="grid grid-cols-5">
                   {Array.from({ length: 5 }, (_, i) => {
                     return (
                       <SVG
-                        class={`w-full stroke-background ${
-                          i >= skill.rating ? "fill-orange" : "fill-background"
+                        class={`w-full ${
+                          i >= skill.rating
+                            ? "fill-comment stroke-comment"
+                            : "fill-red  stroke-red"
                         }`}
                         icon="star"
                       />
@@ -140,14 +146,21 @@ const projects = [
     </div>
   </div>
 
-  <div class="m-auto w-11/12 md:w-8/12 font-mono text-foreground mt-32">
-    <h1 class="w-full text-center text-3xl md:text-5xl mb-10">My Projects</h1>
+  <HorizontalSep class="text-comment" />
+
+  <div class="mx-auto w-11/12 md:w-8/12 font-mono text-foreground py-10">
+    <h1 class="w-full text-center text-3xl md:text-5xl pb-10 text-green">
+      My Projects
+    </h1>
     {
       projects.map((project) => {
         return (
           <div class="flex flex-col lg:flex-row gap-6">
-            <div class="my-10">
-              <a href="https://alvinosh.com/mh" class="text-4xl underline">
+            <div class="">
+              <a
+                href="https://alvinosh.com/mh"
+                class="text-4xl underline text-cyan"
+              >
                 {project.name}
               </a>
               {project.description.map((desc) => {
